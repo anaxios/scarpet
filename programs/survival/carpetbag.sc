@@ -38,7 +38,7 @@ __on_player_uses_item(player, item_tuple, hand) -> (
   screen = create_screen(player,'generic_9x6', name_display, _(screen, player, action, data) -> (
       if(action == 'slot_update' && data:'slot' != player~'selected_slot'+81
       , //if(last_holding:0 != 'bundle', 
-	  global_last_holding = inventory_get(screen, -1);
+	  //global_last_holding = inventory_get(screen, -1);
 	  //);
         //print('holding: ' + last_inv + ' data ' + data);
       );
@@ -55,7 +55,7 @@ __on_player_uses_item(player, item_tuple, hand) -> (
       , 
 	    inventory_set(screen, data:'slot', 1, 'bundle');
 		//if(global_last_holding:0 == 'bundle', global_last_holding = null);
-		inventory_set(screen, -1, last_holding:1, last_holding:0, last_holding:2);
+		//inventory_set(screen, -1, last_holding:1, last_holding:0, last_holding:2);
         'cancel';
       );
 	  
@@ -113,7 +113,9 @@ __screen_inventory_load(screen, inventory) -> (
   i = inventory:'inv'; 
   inv_slot = (inventory:'current_page' * (inventory_size(screen) - global_player_inv_size));
   loop(inventory_size(screen) - global_player_inv_size
-  , inventory_set(screen, _, i:(inv_slot + _):1, i:(inv_slot + _):0, if(i:(inv_slot + _):2, i:(inv_slot + _):2)); 
+  , if(inv_slot
+    , inventory_set(screen, _, i:(inv_slot + _):1, i:(inv_slot + _):0, if(i:(inv_slot + _):2, i:(inv_slot + _):2)); 
+    );
   );
   
 );
