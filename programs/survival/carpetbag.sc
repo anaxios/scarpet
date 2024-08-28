@@ -110,7 +110,7 @@ __screen_inventory_load(screen, inventory) -> (
   i = inventory:'inv'; 
   inv_slot = (inventory:'current_page' * (inventory_size(screen) - global_player_inv_size));
   loop(inventory_size(screen) - global_player_inv_size
-  , if(true
+  , if(_
     , inventory_set(screen, _, i:(inv_slot + _):1, i:(inv_slot + _):0, if(i:(inv_slot + _):2, i:(inv_slot + _):2)); 
     );
   );
