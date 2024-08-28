@@ -66,7 +66,6 @@ __on_player_uses_item(player, item_tuple, hand) -> (
 		if(data:'button' == 1, global_inventory:'current_page' = (global_inventory:'current_page' + 1) % global_max_pages);
 		if(data:'button' == 0, global_inventory:'current_page' = (global_inventory:'current_page' - 1) % global_max_pages);
 		printer('INFO',(global_inventory:'current_page' + 1));
-    display_title(player, 'clear', format('db text'));
 		__screen_inventory_load(screen, global_inventory);
 		sound('item.book.page_turn', pos(player));
         'cancel';
@@ -114,9 +113,7 @@ __screen_inventory_load(screen, inventory) -> (
   i = inventory:'inv'; 
   inv_slot = (inventory:'current_page' * (inventory_size(screen) - global_player_inv_size));
   loop(inventory_size(screen) - global_player_inv_size
-  , if(inv_slot
-    , inventory_set(screen, _, i:(inv_slot + _):1, i:(inv_slot + _):0, if(i:(inv_slot + _):2, i:(inv_slot + _):2)); 
-    );
+  , inventory_set(screen, _, i:(inv_slot + _):1, i:(inv_slot + _):0, if(i:(inv_slot + _):2, i:(inv_slot + _):2)); 
   );
   
 );
