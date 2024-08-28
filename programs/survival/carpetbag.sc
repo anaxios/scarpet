@@ -36,7 +36,7 @@ __on_player_uses_item(player, item_tuple, hand) -> (
   //inventory_set(player, query(player, 'selected_slot'), 1, 'stone');
   
   screen = create_screen(player,'generic_9x6', name_display, _(screen, player, action, data) -> (
-      if(action == 'slot_update' && data:'slot' != player~'selected_slot'+81
+      if(action == 'slot_update' && data:'slot' != player~'selected_slot'+81,
       , //if(last_holding:0 != 'bundle', 
 	  global_last_holding = inventory_get(screen, -1);
 	  //);
