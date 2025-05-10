@@ -1,4 +1,3 @@
-# Survival scarpet apps
 Various scripts that modify various game elements, often replicating popular modded features, intended for use in (but not limited to) survival worlds.
 
 ## Survival scarpet apps in alphabetical order with creator:
@@ -108,6 +107,12 @@ Various scripts that modify various game elements, often replicating popular mod
 ### [fakeplayer_inv_editor.sc](https://github.com/gnembon/scarpet/blob/master/programs/survival/fakeplayer_inv_editor.sc):
 #### By Chen_yu_xuan
 	Right click fakeplayers to edit their inventorys.
+	
+### [graves.sc](https://github.com/gnembon/scarpet/blob/master/programs/survival/graves.sc):
+#### By SurfingDude
+	Scarpet app for graves inspired by universal graves mod (by patbox).
+	To know about all available settings, please check the first few lines.
+	debug and resetData sub-commands for more control over the grave data.
 
 ### [flippin_cactus.sc](https://github.com/gnembon/scarpet/blob/master/programs/survival/flippin_cactus.sc):
 #### By Ghoulboy
@@ -399,8 +404,7 @@ Various scripts that modify various game elements, often replicating popular mod
 
 ### [villager_poi.sc](https://github.com/gnembon/scarpet/blob/master/programs/survival/villager_poi.sc):
 #### By gnembonmc
-	Keeps track of villager poi system?
-	(Please enter an explanation, as it quite unclear)
+	When holding a map and looking at a villager, the corresponding POI blocks will fly from over the villager's head to their claimed bed, job site and bell. 
 
 ### [vines_instant_mine.sc](https://github.com/gnembon/scarpet/blob/master/programs/survival/vines_instant_mine.sc):
 #### By BisUmTo
@@ -446,5 +450,6 @@ Various scripts that modify various game elements, often replicating popular mod
 	Opsaaaaa
 	Xendergo
 	ch-yx
+	SurfingDude
 	Crec0
 	(Many more hopefully!)
