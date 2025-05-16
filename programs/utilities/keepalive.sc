@@ -4,7 +4,7 @@
 __config() -> {'scope' -> 'global'};
 
 __spawn_players() -> (
-   sleep(30000);
+   sleep(20000);
    data = load_app_data();
    if (data && data:'players',
       data = parse_nbt(data:'players');
@@ -45,6 +45,6 @@ __on_server_starts() -> (
    task('__spawn_players');
 );
 
-__on_close() -> (
+__on_server_shuts_down() -> (
    task('__store_players');
 );
