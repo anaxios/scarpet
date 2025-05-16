@@ -45,6 +45,6 @@ __on_server_starts() -> (
    task('__spawn_players');
 );
 
-__on_server_shuts_down() -> (
+__on_close() -> (
    task('__store_players');
 );
