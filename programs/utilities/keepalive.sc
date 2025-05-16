@@ -4,7 +4,7 @@
 __config() -> {'scope' -> 'global'};
 
 __spawn_players() -> (
-   sleep(100000, print('spawnning players));
+   sleep(100000, print('spawnning players'));
    data = load_app_data();
    if (data && data:'players',
       data = parse_nbt(data:'players');
