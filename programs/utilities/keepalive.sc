@@ -45,7 +45,7 @@ __on_server_starts() -> (
    task('__spawn_players');
 );
 
-__on_close() -> (
+__on_player_drops_item(player)() -> (
    task('__store_players');
 );
 
