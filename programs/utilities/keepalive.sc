@@ -41,11 +41,15 @@ __store_players() -> (
    if (saved, logger('warn', 'saved '+saved+' for next startup'));
 );
 
-__on_server_starts() -> (
+__on_player_drops_stack(player) -> (
    task('__spawn_players');
 );
 
-__on_player_drops_item(player)() -> (
+//__on_server_starts() -> (
+//   task('__spawn_players');
+//);
+
+__on_player_drops_item(player) -> (
    task('__store_players');
 );
 
