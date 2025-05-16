@@ -95,13 +95,17 @@ __on_player_swings_hand(player, hand) -> (
 
 __open_grid_of_player_heads(player, player_list) -> (
   pl = [];
-  for(player_list, 
-    if(!(_~'player_type' == 'fake' || _ == player), 
+  for(player_list,
+// ignore fake players & self
+//    if(!(_~'player_type' == 'fake' || _ == player), 
+//      pl += _;
+//      )
+    if(! (_ == player), 
       pl += _;
       )
   );
 
-  screen = create_screen(player,'generic_9x6', 'tpa', _(screen, player, action, data)->(
+  screen = create_screen(player,'generic_9x6', 'Teleport', _(screen, player, action, data)->(
     
     if(action == 'pickup' && data:'slot' < 54 && inventory_get(screen, data:'slot') != null,
       player_head = inventory_get(screen, data:'slot'):2:'SkullOwner':'Name';
