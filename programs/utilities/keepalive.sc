@@ -20,11 +20,7 @@ __spawn_players() -> (
    );
 );
 
-__on_server_starts() -> (
-  task('__spawn_players');
-);
-
-__on_server_shuts_down() -> (
+__store_players() -> (
    data = nbt('{players:[]}');
    saved = [];
    for (filter(player('all'), _~'player_type' == 'fake'),
@@ -44,3 +40,15 @@ __on_server_shuts_down() -> (
    store_app_data(data);
    if (saved, logger('warn', 'saved '+saved+' for next startup'));
 );
+
+__on_server_starts() -> (
+   task('__spawn_players');
+);
+
+__on_close() -> (
+   task('__store_players');
+);
+
+//__on_server_shuts_down() -> (
+//   task('__store_players');
+//);
