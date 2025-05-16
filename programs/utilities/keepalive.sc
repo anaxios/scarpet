@@ -4,7 +4,7 @@
 __config() -> {'scope' -> 'global'};
 
 __spawn_players() -> (
-   sleep(100000);
+   sleep(1000);
    data = load_app_data();
    if (data && data:'players',
       data = parse_nbt(data:'players');
@@ -41,18 +41,10 @@ __store_players() -> (
    if (saved, logger('warn', 'saved '+saved+' for next startup'));
 );
 
-__on_player_drops_stack(player) -> (
+__on_server_starts() -> (
    task('__spawn_players');
 );
 
-//__on_server_starts() -> (
-//   task('__spawn_players');
-//);
-
-__on_player_drops_item(player) -> (
+__on_server_shuts_down() -> (
    task('__store_players');
 );
-
-//__on_server_shuts_down() -> (
-//   task('__store_players');
-//);
