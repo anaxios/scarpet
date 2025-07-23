@@ -1,4 +1,5 @@
 //!scarpet v1.5
+
 // stay loaded
 __config() -> (
    m(
@@ -18,23 +19,19 @@ __on_player_dies(player) -> (
 __on_player_respawns(player) -> (
   if(__stored_player_inventory_exists(player)
   , schedule(0, '__restore_player_inventory', player);
-    schedule(2, '__delete_stored_player_inventory', player);
+    schedule(2,'__delete_stored_player_inventory', player);
   );
 );
 
 __holding_feather(player) -> (
-  offhand = inventory_get(player, -1);
-  if(offhand:0 == 'feather'
-  , true;
-  , false;
-  );
+  offhand = query(player,'holds','offhand');
+  mainhand = query(player,'holds');
+  (offhand:0 == 'feather' || mainhand:0 == 'feather');
 );
 
 __stored_player_inventory_exists(player) -> (
-  if(read_file(player+'_feather_inv', 'json')
-  , true 
-  , false
-  );
+  // use !! to turn into boolean value. Sure why not.
+  !(! read_file(player+'_feather_inv', 'json'));
 );
 
 __store_player_inventory(player) -> (
@@ -53,10 +50,16 @@ __stop_items_from_dropping(player) -> (
 
 __restore_player_inventory(player) -> (
   i = read_file(player+'_feather_inv', 'json');
-  for(decode_json(i), inventory_set(player,_i,_:1,_:0,_:2));
+  for(decode_json(i)
+  , if(_:0 != null
+  , inventory_set(player,_i,_:1,_:0,_:2)
+    );
+  );
 );
 
 
 __delete_stored_player_inventory(player) -> (
   delete_file(player+'_feather_inv', 'json');
 );
+
+
