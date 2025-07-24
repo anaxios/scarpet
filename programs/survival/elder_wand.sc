@@ -16,12 +16,25 @@ __config() -> {
     'stay_loaded' -> 'true',
 
     'commands' -> {
-        '' -> _() -> print('USAGE: "/elder_wand wand" to give wand'),
-        'wand' -> _() -> (if(player()~'gamemode' == 'creative',
-                          run('give @p minecraft:stick{Enchantments:[{id:"minecraft:luck",lvl:1}]} 1'),
-                          print(format('r ERROR: Only creative players can use this command')))),
+        '' -> _() -> print('USAGE: "/elder_wand accio" to give wand'),
+        'accio' -> _() -> run('give @p minecraft:stick[minecraft:enchantments={"minecraft:knockback":1}] 1'),
     }
 };
+
+
+__holding_wand(player) -> (
+  hand = query(player, 'holds', 'mainhand');
+  (hand:0 == 'stick' && __has_magic(hand:2));
+);
+
+__has_magic(nbt) -> (
+  enchants_list = parse_nbt(nbt):'components';
+  enchants_list = enchants_list:'minecraft:enchantments';
+
+  if(enchants_list != null,
+    !(!first(enchants_list,_:'minecraft:knockback'));
+  );
+);
 
 __on_start() -> (
   link_file = read_file('links', 'json');
@@ -192,29 +205,6 @@ __on_player_uses_item(player, item_tuple, hand) -> (
 // );
 
 
-__holding_wand(player) -> (
-  hand = query(player, 'holds', 'mainhand');
-  if(hand:0 == 'stick' && __has_luck(hand:2)
-  , true;
-  , false;
-  );
-);
-
-__has_luck(nbt) -> (
-  // get enchantments list
-  enchants_list = parse_nbt(nbt):'Enchantments';
-
-  // check if enchants exist
-  if(enchants_list != null,
-    // find enchant that matches and check if not null
-    first(enchants_list,
-      // check if enchant is efficiency and is level 5 or more
-      _:'id' == 'minecraft:luck' && _:'lvl' >= 1;
-    ) != null,
-  //else
-    false
-  );
-);
 
 
 // __get_wormhole_database() -> (
