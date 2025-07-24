@@ -122,8 +122,9 @@ __open_grid_of_player_heads(player, player_list) -> (
   screen = create_screen(player,'generic_9x6', 'Teleport', _(screen, player, action, data)->(
     
     if(action == 'pickup' && data:'slot' < 54 && inventory_get(screen, data:'slot') != null,
-      player_head = inventory_get(screen, data:'slot'):2:'SkullOwner':'Name';
+      player_head = inventory_get(screen, data:'slot'):2:'components':'minecraft:profile':'name';
       other = __get_player_from_name(player_head);
+
       //__take_xp_level(player);
       __tp_player(player, __link_part_new(pos(other), other~'dimension'));
       close_screen(screen);
@@ -133,11 +134,10 @@ __open_grid_of_player_heads(player, player_list) -> (
   ));
   
   task(_(outer(screen),outer(item_tuple),outer(pl)) -> (
-    
     if(screen_property(screen, 'open') == 'true',
      for(pl,
        player_head = __get_player_head_tuple(_);
-       inventory_set(screen, _i, 1, player_head:0, player_head:1);
+       inventory_set(screen, _i, 1, player_head:0 , player_head:1 );
       );
     );
   ));
@@ -261,7 +261,9 @@ __take_xp_level(player) -> (
 );
 
 __get_player_head_tuple(player) -> (
-  ['player_head', '{SkullOwner:' + player + '}']
+   ph = nbt('{id:"minecraft:player_head"}'); 
+   put(ph, 'components{}.minecraft:profile{}.name', player);
+  ['minecraft:player_head', ph]
 );
 
 // __spawn_head(player, loc) -> (
