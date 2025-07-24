@@ -22,6 +22,7 @@ __config() -> {
 };
 
 
+
 __holding_wand(player) -> (
   hand = query(player, 'holds', 'mainhand');
   (hand:0 == 'stick' && __has_magic(hand:2));
@@ -32,7 +33,7 @@ __has_magic(nbt) -> (
   enchants_list = enchants_list:'minecraft:enchantments';
 
   if(enchants_list != null,
-    !(!first(enchants_list,_:'minecraft:knockback'));
+      (first(enchants_list,_) == 'minecraft:knockback');
   );
 );
 
